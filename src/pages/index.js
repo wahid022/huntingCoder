@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +32,10 @@ export default function Home() {
       
         <nav className={styles.nav}>
           <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Blog</li>
-            <li>Contact</li>
+            <li><Link href="/"><a>Home</a>   </Link></li>
+            <li> <Link href="/about"><a>About </a> </Link> </li>
+            <li> <Link href="/blog"><a>Blog</a>   </Link></li>
+            <li> <Link href="/contact"><a>Contact</a> </Link></li>
           </ul>
         </nav>
 
