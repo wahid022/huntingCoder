@@ -15,7 +15,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      
       <main className={styles.main}>
         <h1 className={styles.title}>Hunting Coder</h1>
 
@@ -33,24 +32,22 @@ export default function Home() {
           A blog for hunting coders by a hunting coder
         </p>
 
-        <div className="blogs">
+        <div className={styles.blogs}>
           <h2>Popular Blogs</h2>
-          <div className="blogItem">
+          <div className={styles.blogItem}>
             <h3>How to learn JavaScript in 2022?</h3>
             <p>JavaScript is the language used to design logic for the web</p>
           </div>
-          <div className="blogItem">
+          <div className={styles.blogItem}>
             <h3>How to learn JavaScript in 2022?</h3>
             <p>JavaScript is the language used to design logic for the web</p>
           </div>
-          <div className="blogItem">
+          <div className={styles.blogItem}>
             <h3>How to learn JavaScript in 2022?</h3>
             <p>JavaScript is the language used to design logic for the web</p>
           </div>
         </div>
       </main>
-
-     
     </div>
   );
 }
