@@ -18,7 +18,7 @@ const Blog = () => {
       .catch((error) => console.error('Error fetching data:', error));
   }, []); 
 
-  console.log(blogs);
+  // console.log(blogs);
   
   return <div className={styles.container}>
     <main className={styles.main}> 
