@@ -7,18 +7,11 @@ import Link from 'next/link';
 // Step 2: Iterate through the and Display them
 
 
-const Blog = () => {
+const Blog = (props) => {
 
-  const [blogs,setBlogs]=useState([]);
+  const [blogs,setBlogs]=useState(props.allBlogs);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/api/blogs')
-      .then((res) => res.json()) 
-      .then((data) => setBlogs(data)) 
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []); 
-
-  // console.log(blogs);
+  // console.log("bloggs *******************_______________________________",blogs);
   
   return <div className={styles.container}>
     <main className={styles.main}> 
@@ -32,5 +25,18 @@ const Blog = () => {
   </main>
 </div>
 };
+
+
+
+ 
+// This gets called on every request
+export async function getServerSideProps(context) {
+  // Fetch data from external API
+  const res = await fetch('http://localhost:3000/api/blogs')
+  const allBlogs = await res.json()
+ 
+  // Pass data to the page via props
+  return { props: { allBlogs } }
+}
 
 export default Blog;
