@@ -8,6 +8,9 @@ import * as fs from "fs";
 //here props is being passed from the below function from the export async function getStaticProps(context)
 
 const slug = (props) => {
+  function createMarkup(c) {
+    return { __html: c };
+  }
   const [blog, setBlog] = useState(props.myBlog);
 
   // console.log("************",blog);
@@ -17,7 +20,9 @@ const slug = (props) => {
       <main className={styles.main}>
         <h1>{blog && blog.title}</h1>
         <hr />
-        <div>{blog && blog.content}</div>
+        {blog && (
+          <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div>
+        )}
       </main>
     </div>
   );
@@ -28,29 +33,30 @@ const slug = (props) => {
 
 export async function getStaticPaths() {
   return {
-
     //  Here Paths array syntax is written because it contains url for different pages thats why this is not the case for only single indivdual url or page ..
-      paths: [
-          // See path selection below
-          { params: {slug:'how-to-learn-flask'} },
-          { params: {slug:'how-to-learn-javascript'} },
-          { params: {slug:'how-to-learn-nextjs'} }
-      ],
+    paths: [
+      // See path selection below
+      { params: { slug: "how-to-learn-flask" } },
+      { params: { slug: "how-to-learn-javascript" } },
+      { params: { slug: "how-to-learn-nextjs" } },
+    ],
 
-      // See the fallback section below 
-      fallback: true
+    // See the fallback section below
+    fallback: true,
   };
 }
-
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
   // Here including [slug].js logic in SSG(static Site Generation..)
   // Here We are just finding the path of the file using readFile function
-    const myBlog = await fs.promises.readFile(`${process.cwd()}/blogdata/${slug}.json`,"utf8");
-  
+  const myBlog = await fs.promises.readFile(
+    `${process.cwd()}/blogdata/${slug}.json`,
+    "utf8"
+  );
+
   // Pass data to the page via props it will be passed to the abpve export slug function const slug = (props) => {
-  return { props: { myBlog:JSON.parse(myBlog) } };
+  return { props: { myBlog: JSON.parse(myBlog) } };
 }
 
 export default slug;
