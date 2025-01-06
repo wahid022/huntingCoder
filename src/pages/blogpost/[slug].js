@@ -42,3 +42,6 @@ export async function getServerSideProps(context) {
 }
 
 export default slug;
+
+
+// Now starting the Static Site generation noew 
