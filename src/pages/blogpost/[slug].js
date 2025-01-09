@@ -3,21 +3,19 @@ import { useRouter } from "next/router";
 import styles from "../../styles/BlogPost.module.css";
 import * as fs from "fs";
 
+// Step 1: Find the file corresponding to the slug
+// Step 2: Populate them inside the page
+
 //  [slug] file is for the dynamic routing inside blogpost folder sp any url corresponding to localhost:3000//blogpost/anyname will be automatically visible through slug...
 
 //here props is being passed from the below function from the export async function getStaticProps(context)
 
 const slug = (props) => {
-  
-
   // Here c is the injected HTML content i.e. blog.content is passed as parameter from createMarkup(blog.content)
+
   function createMarkup(c) {
     return { __html: c };
   }
-
-
-
-
   const [blog, setBlog] = useState(props.myBlog);
 
   // console.log("************",blog);
@@ -28,7 +26,7 @@ const slug = (props) => {
         <h1>{blog && blog.title}</h1>
         <hr />
         {blog && (
-          <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div> // Syntax for dangerouslySetInnerHTML 
+          <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div> // Syntax for dangerouslySetInnerHTML
         )}
       </main>
     </div>
@@ -39,17 +37,15 @@ const slug = (props) => {
 // Now All the html content coming from API will be visible to view page source and is very good for SEO purpose ..
 
 export async function getStaticPaths() {
+  
+  let allb = await fs.promises.readdir(`blogdata`);
+  allb = allb.map((item) => {
+    return { params: { slug: item.split(".")[0] } };
+  });
+  console.log(allb);
   return {
-    //  Here Paths array syntax is written because it contains url for different pages thats why this is not the case for only single indivdual url or page ..
-    paths: [
-      // See path selection below
-      { params: { slug: "how-to-learn-flask" } },
-      { params: { slug: "how-to-learn-javascript" } },
-      { params: { slug: "how-to-learn-nextjs" } },
-    ],
-
-    // See the fallback section below
-    fallback: true,
+    paths: allb,
+    fallback: true, // false or 'blocking'
   };
 }
 
