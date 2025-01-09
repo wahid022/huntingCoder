@@ -8,9 +8,16 @@ import * as fs from "fs";
 //here props is being passed from the below function from the export async function getStaticProps(context)
 
 const slug = (props) => {
+  
+
+  // Here c is the injected HTML content i.e. blog.content is passed as parameter from createMarkup(blog.content)
   function createMarkup(c) {
     return { __html: c };
   }
+
+
+
+
   const [blog, setBlog] = useState(props.myBlog);
 
   // console.log("************",blog);
@@ -21,7 +28,7 @@ const slug = (props) => {
         <h1>{blog && blog.title}</h1>
         <hr />
         {blog && (
-          <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div>
+          <div dangerouslySetInnerHTML={createMarkup(blog.content)}></div> // Syntax for dangerouslySetInnerHTML 
         )}
       </main>
     </div>
