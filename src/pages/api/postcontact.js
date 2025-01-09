@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
       // Save the data
       const filePath = path.join(dirPath, `${files.length + 1}.json`); // Created a new File and added to contactdata folder..
-      await fs.promises.writeFile(filePath, JSON.stringify(req.body, null, 2));
+      await fs.promises.writeFile(filePath, JSON.stringify(req.body, null, 2)); // writing the file with the data
 
       res.status(200).json({ message: "Data saved successfully!" });
     } catch (error) {
